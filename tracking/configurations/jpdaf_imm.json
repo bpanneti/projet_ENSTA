@@ -1,0 +1,45 @@
+{
+  "family": "Multicible",
+  "estimator": "IMM",
+  "dynamics": "CV",
+  "association": "JPDAF",
+  "process_noise_cv": 1.0,
+  "process_noise_ca": 0.2,
+  "sigma_range": 10.0,
+  "sigma_azimuth_deg": 1.0,
+  "sigma_elevation_deg": 1.0,
+  "use_received_R": true,
+  "sigma_position": 20.0,
+  "sigma_velocity": 30.0,
+  "sigma_acceleration": 5.0,
+  "unobserved_altitude_sigma": 1000.0,
+  "gate_probability": 0.9973,
+  "detection_probability": 0.9,
+  "clutter_density": 1e-05,
+  "confirmation_hits": 3,
+  "confirmation_window": 5,
+  "deletion_seconds": 10.0,
+  "max_tracks": 20,
+  "max_hypotheses": 10000,
+  "allow_bearing_prior": false,
+  "bearing_prior_range": 1000.0,
+  "bearing_prior_sigma": 1000.0,
+  "seed_detection_id": "",
+  "imm_transition": [
+    [
+      0.95,
+      0.05
+    ],
+    [
+      0.05,
+      0.95
+    ]
+  ],
+  "imm_probabilities": [
+    0.5,
+    0.5
+  ],
+  "P0_diagonal": null,
+  "Q_override": {},
+  "R_override": {}
+}
