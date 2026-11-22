@@ -178,7 +178,7 @@ class FilterBank:
             K = np.linalg.solve(S, h @ state.P).T
             a = np.eye(len(state.x)) - K @ h
             # Forme de Joseph, conserve la covariance de bruit de mesure.
-            P = a @ state.P @ a.T + K @ observation.R @ K.T
+            #P = ENSTA  to complete
             states.append(Gaussian(state.x + K @ residual, (P+P.T)/2))
             likelihoods.append(loglik)
             diagnostics.append({'innovation': residual.tolist(), 'S': S.tolist(), 'NIS': nis})
@@ -300,7 +300,8 @@ class TrackingEngine:
 
         degrees = len(measurements[0].z)  # 3 if c.estimator == 'CMKF' else
 
-        gating_threshold = chi2.ppf(c.gate_probability, degrees);
+        # ---> A compléter ici pour le multi-cible
+        # gating_threshold = ? 
 
 
 
@@ -316,7 +317,7 @@ class TrackingEngine:
                     bank, likelihood, nis, diagnostics = track.bank.updated(measurement)
                     nis_classification                 = track.bank.classification(measurement)
 
-                    if nis <= gating_threshold or  c.family == 'Monocible' :
+                    if c.family == 'Monocible' : #---> A compléter ici pour le multi-cible
 
                         candidates[i, j] = (bank, math.log(c.detection_probability)+likelihood-math.log(c.clutter_density), diagnostics)
                 except (ValueError, np.linalg.LinAlgError) as exc:

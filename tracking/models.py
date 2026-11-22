@@ -61,31 +61,8 @@ class Dynamics:
     def matrices(self, dt):
         if dt < 0:
             raise ValueError('Temps de prédiction négatif')
-        n = self.size
-        f = np.eye(n)
-        f[:3, 3:6] = np.eye(3) * dt
-        q = np.zeros((n, n))
 
-
-        if self.kind == 'CA':
-            f[:3, 6:9] = np.eye(3) * dt**2 / 2
-            f[3:6, 6:9] = np.eye(3) * dt
-            # Bruit blanc continu de jerk : intensité en m²/s⁵.
-            block = np.array([[dt**5/20, dt**4/8, dt**3/6],
-                              [dt**4/8, dt**3/3, dt**2/2],
-                              [dt**3/6, dt**2/2, dt]]) * self.noise
-            for axis in range(3):
-                ids = [axis, axis+3, axis+6]
-                q[np.ix_(ids, ids)] = block
-        else:
-            # Bruit blanc continu d'accélération : intensité en m²/s³.
-            block = np.array([[dt**3/3, dt**2/2], [dt**2/2, dt]]) * self.noise
-            for axis in range(3):
-                ids = [axis, axis+3]
-                q[np.ix_(ids, ids)] = block
-            if n == 9:
-                f[6:9, :] = 0  # Projection CV dans l'espace commun de l'IMM.
-
+        #-->  student to  complete
 
         return f, q
 
@@ -144,8 +121,8 @@ class Observation:
         d2 = e*e + n*n; d = math.sqrt(d2); r2 = d2 + u*u
         if d < 1e-7 or r2 < 1e-12:
             raise ValueError('Jacobienne de mesure singulière')
-        az = np.array([n/d2, -e/d2, 0.])
-        el = np.array([-u*e/(d*r2), -u*n/(d*r2), d/r2])
+        #az = --> ENSTA to complete
+        #el = --> ENSTA to  complete
         if self.kind == 'POLAR':
             local = np.array([[e/d, n/d, 0], az])
         elif self.kind == 'SPHERICAL':
